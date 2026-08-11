@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clemente Cifuentes — Data Analyst</title>
+  <meta name="description" content="Data Analyst con 3+ años de experiencia en Python, SQL y Power BI. Automatización de pipelines, integración de APIs y dashboards para agro, logística y energía.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-soft: #101018;
+      --card: #13131d;
+      --border: #22222f;
+      --border-soft: #1a1a26;
+      --text: #ededf2;
+      --text-dim: #9d9dae;
+      --text-faint: #62626f;
+      --accent: #8b8bf4;
+      --accent-2: #5eead4;
+      --max-w: 1060px;
+      --radius: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 450;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: var(--text); text-decoration: none; }
+    h1, h2, h3 { font-family: "Space Grotesk", "Inter", sans-serif; }
+
+    /* ---------- Fondo con aurora sutil ---------- */
+    .aurora {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(600px 400px at 75% -5%, rgba(139, 139, 244, 0.13), transparent 65%),
+        radial-gradient(500px 380px at 15% 10%, rgba(94, 234, 212, 0.07), transparent 65%);
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.95rem 1.5rem;
+    }
+    .nav-logo { font-family: "Space Grotesk"; font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
+    .nav-logo em { font-style: normal; color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; align-items: center; }
+    .nav-links a { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cv {
+      color: var(--text) !important;
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.4rem 0.95rem; transition: border-color 0.2s, background 0.2s;
+    }
+    .nav-cv:hover { border-color: var(--accent); background: rgba(139, 139, 244, 0.08); }
+
+    /* ---------- Hero ---------- */
+    .hero { max-width: var(--max-w); margin: 0 auto; padding: 4.2rem 1.5rem 3rem; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-dim);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 0.35rem 0.95rem; margin-bottom: 1.8rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .hero-badge::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 10px rgba(94, 234, 212, 0.7);
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700; letter-spacing: -0.035em; line-height: 1.05;
+      margin-bottom: 1.3rem;
+    }
+    h1 .grad {
+      background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-sub {
+      color: var(--text-dim); font-size: 1.12rem; max-width: 610px; margin-bottom: 1.8rem;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.72rem 1.45rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.93rem;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.18s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { box-shadow: 0 8px 28px rgba(237, 237, 242, 0.18); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text-dim); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+    .hero-meta {
+      margin-top: 1.8rem; display: flex; gap: 0.6rem 1.8rem; flex-wrap: wrap;
+      font-size: 0.87rem; color: var(--text-faint);
+    }
+    .hero-meta a { color: var(--text-faint); border-bottom: 1px solid transparent; transition: color 0.2s; }
+    .hero-meta a:hover { color: var(--accent); }
+
+    /* ---------- Secciones ---------- */
+    section { max-width: var(--max-w); margin: 0 auto; padding: 3.8rem 1.5rem; }
+    .sec-head { margin-bottom: 2.6rem; }
+    .sec-kicker {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .sec-title { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 700; letter-spacing: -0.02em; }
+    .sec-sub { color: var(--text-dim); margin-top: 0.5rem; max-width: 560px; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+
+    /* ---------- Experiencia ---------- */
+    .xp-item {
+      display: grid; grid-template-columns: 190px 1fr; gap: 1.6rem;
+      padding: 2rem 0; border-top: 1px solid var(--border-soft);
+    }
+    .xp-item:last-of-type { border-bottom: 1px solid var(--border-soft); }
+    .xp-when { font-size: 0.85rem; color: var(--text-faint); padding-top: 0.3rem; }
+    .xp-role { font-family: "Space Grotesk"; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+    .xp-org { color: var(--accent); font-size: 0.92rem; font-weight: 500; margin: 0.15rem 0 0.85rem; }
+    .xp-body { color: var(--text-dim); font-size: 0.97rem; }
+    .xp-body ul { list-style: none; display: grid; gap: 0.5rem; }
+    .xp-body li { padding-left: 1.15rem; position: relative; }
+    .xp-body li::before { content: "—"; position: absolute; left: 0; color: var(--text-faint); }
+    .xp-body strong { color: var(--text); font-weight: 600; }
+    @media (max-width: 680px) { .xp-item { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+    /* ---------- Proyectos ---------- */
+    .projects-grid { display: grid; gap: 1.2rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 780px) { .projects-grid { grid-template-columns: 1fr; } }
+    .project-card {
+      position: relative;
+      background: var(--card); border: 1px solid var(--border-soft);
+      border-radius: var(--radius); padding: 1.8rem;
+      display: flex; flex-direction: column; gap: 0.9rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: ""; position: absolute; inset: 0; opacity: 0;
+      background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), rgba(139, 139, 244, 0.08), transparent 65%);
+      transition: opacity 0.3s; pointer-events: none;
+    }
+    .project-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
+    .project-card:hover::before { opacity: 1; }
+    .project-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+    .project-sector {
+      font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .project-status {
+      font-size: 0.72rem; font-weight: 500; color: var(--text-faint);
+      border: 1px solid var(--border); border-radius: 999px; padding: 0.14rem 0.6rem;
+    }
+    .st-live { color: var(--accent-2); border-color: rgba(94, 234, 212, 0.3); }
+    .project-card h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.01em; }
+    .project-card p { color: var(--text-dim); font-size: 0.94rem; flex-grow: 1; }
+    .project-result { font-size: 0.89rem; color: var(--text); }
+    .project-result::before { content: "↳ "; color: var(--accent); }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .tag {
+      font-size: 0.76rem; font-weight: 500; color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border-soft);
+      padding: 0.2rem 0.65rem; border-radius: 6px;
+    }
+    .project-links { display: flex; gap: 1.2rem; font-size: 0.88rem; font-weight: 500; }
+    .project-links a { color: var(--accent); }
+    .project-links a:hover { text-decoration: underline; }
+
+    /* ---------- Habilidades ---------- */
+    .skills-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); }
+    .skill-group {
+      background: var(--bg-soft); border: 1px solid var(--border-soft);
+      border-radius: var(--radius); padding: 1.6rem;
+    }
+    .skill-group h3 {
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 1.1rem;
+    }
+    .skill-group ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-group li {
+      background: var(--card); border: 1px solid var(--border-soft);
+      padding: 0.32rem 0.8rem; border-radius: 8px; font-size: 0.88rem;
+    }
+
+    /* ---------- Formación ---------- */
+    .edu-grid { display: grid; gap: 1.2rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 680px) { .edu-grid { grid-template-columns: 1fr; } }
+    .edu-card {
+      background: var(--bg-soft); border: 1px solid var(--border-soft);
+      border-radius: var(--radius); padding: 1.6rem;
+    }
+    .edu-card h3 { font-size: 1.02rem; font-weight: 600; }
+    .edu-where { color: var(--accent); font-size: 0.87rem; font-weight: 500; margin-top: 0.15rem; }
+    .edu-when { font-size: 0.8rem; color: var(--text-faint); margin: 0.15rem 0 0.6rem; }
+    .edu-card p { color: var(--text-dim); font-size: 0.92rem; }
+    .certs { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .cert {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border-soft); border-radius: 999px;
+      background: var(--bg-soft);
+      padding: 0.42rem 1rem; font-size: 0.85rem; color: var(--text-dim);
+    }
+    .cert::before { content: "✓"; color: var(--accent-2); font-weight: 700; }
+
+    /* ---------- Contacto ---------- */
+    .contact-card {
+      position: relative; overflow: hidden;
+      border: 1px solid var(--border-soft); border-radius: 18px;
+      background: var(--bg-soft);
+      padding: 3.6rem 2rem; text-align: center;
+      display: grid; gap: 1.15rem; justify-items: center;
+    }
+    .contact-card::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(500px 260px at 50% -10%, rgba(139, 139, 244, 0.14), transparent 70%);
+    }
+    .contact-card h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: -0.02em; }
+    .contact-card > p { color: var(--text-dim); max-width: 480px; }
+    .contact-links {
+      display: flex; gap: 1.7rem; flex-wrap: wrap; justify-content: center;
+      font-size: 0.9rem; font-weight: 500; margin-top: 0.3rem;
+    }
+    .contact-links a { color: var(--text-dim); transition: color 0.2s; }
+    .contact-links a:hover { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 1.7rem; text-align: center;
+      color: var(--text-faint); font-size: 0.83rem;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a:not(.nav-cv) { display: none; }
+      .hero { padding-top: 4.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="aurora"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">clemente<em>.</em>cifuentes</div>
+    <div class="nav-links">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#formacion">Formación</a>
+      <a class="nav-cv" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">Descargar CV</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">Disponible para nuevos proyectos</div>
+  <h1>Data Analyst.<br><span class="grad">Convierto datos en decisiones.</span></h1>
+  <p class="hero-sub">
+    Soy Clemente Cifuentes. Más de <strong>3 años</strong> transformando datos crudos en
+    información confiable: automatizo pipelines con <strong>Python y SQL</strong>, integro
+    datos en tiempo real vía <strong>APIs REST</strong> y diseño <strong>dashboards en
+    Power BI</strong> que impulsan decisiones de negocio. Especializado en datos operativos:
+    <strong>agro, logística, stock y energía</strong>.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="mailto:clementecifuentes1@gmail.com">Contactarme</a>
+    <a class="btn btn-ghost" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">CV Español</a>
+    <a class="btn btn-ghost" href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">CV English</a>
+  </div>
+  <div class="hero-meta">
+    <span>Tandil, Buenos Aires · GMT-3</span>
+    <span>Inglés nativo / C1+ · Español nativo</span>
+    <a href="https://linkedin.com/in/clementecifuentes" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/clementecifuentes" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</header>
+
+<section id="proyectos">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Proyectos</div>
+    <h2 class="sec-title">Trabajo aplicado por industria</h2>
+    <p class="sec-sub">Casos reales y proyectos con datasets públicos, orientados a operaciones: agro, logística, inventario y energía.</p>
+  </div>
+  <div class="projects-grid">
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">Agro · IoT</span>
+        <span class="project-status st-live">En producción</span>
+      </div>
+      <h3>Monitoreo de KPIs — Flota conectada John Deere</h3>
+      <p>Sistema de monitoreo de indicadores para maquinaria agrícola conectada:
+         integración de APIs REST (OAuth2) sobre 850+ organizaciones y estandarización
+         de datos inconsistentes en modelos de reporting limpios.</p>
+      <div class="project-result">Adoptado por gerencia para decisiones operativas semanales.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">APIs REST</span><span class="tag">Power BI</span></div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">LegalTech · Migración</span>
+        <span class="project-status st-live">En producción</span>
+      </div>
+      <h3>Primera base SQL de un estudio jurídico</h3>
+      <p>Análisis de un proceso legacy sin documentar (expedientes en planillas) y
+         migración completa a base relacional: diseño de esquema, limpieza,
+         migración y validación de registros.</p>
+      <div class="project-result">Reemplazó por completo el flujo de trabajo manual del estudio.</div>
+      <div class="tags"><span class="tag">SQL</span><span class="tag">Modelado de datos</span><span class="tag">Data Quality</span></div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">Logística · Supply Chain</span>
+        <span class="project-status st-live">Publicado</span>
+      </div>
+      <h3>Torre de control logística</h3>
+      <p>Dashboard de seguimiento de entregas: tiempos de tránsito, cumplimiento OTIF,
+         costos por ruta y detección de cuellos de botella en la distribución.</p>
+      <div class="project-result">91,8% de entregas a tiempo; el tránsito del correo explica ~70% del lead time.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">OTIF</span><span class="tag">Lead time</span></div>
+      <div class="project-links"><a href="https://github.com/clementecifuentes/torre-control-logistica" target="_blank" rel="noopener">Ver código →</a></div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">Stock · Inventario</span>
+        <span class="project-status st-live">Publicado</span>
+      </div>
+      <h3>Control de inventario con predicción de demanda</h3>
+      <p>Análisis ABC de inventario, punto de reorden y stock de seguridad, con
+         pronóstico de demanda por SKU para reducir quiebres de stock y capital inmovilizado.</p>
+      <div class="project-result">Pronóstico Holt-Winters con 2,4% de MAPE validado fuera de muestra.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">statsmodels</span><span class="tag">Forecasting</span><span class="tag">ABC</span></div>
+      <div class="project-links"><a href="https://github.com/clementecifuentes/inventario-prediccion-demanda" target="_blank" rel="noopener">Ver código →</a></div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">Oil &amp; Gas · Energía</span>
+        <span class="project-status st-live">Publicado</span>
+      </div>
+      <h3>Análisis de producción — Vaca Muerta</h3>
+      <p>Análisis de producción de pozos no convencionales con datos abiertos de la
+         Secretaría de Energía: curvas de declinación, producción por operadora y
+         evolución de la actividad en la cuenca neuquina.</p>
+      <div class="project-result">213 mil registros de 3.335 pozos descargados vía API oficial, con curvas tipo por cohorte.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">API CKAN</span><span class="tag">Datos abiertos</span></div>
+      <div class="project-links"><a href="https://github.com/clementecifuentes/vaca-muerta-produccion" target="_blank" rel="noopener">Ver código →</a></div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-top">
+        <span class="project-sector">Agro · Rendimientos</span>
+        <span class="project-status st-live">Publicado</span>
+      </div>
+      <h3>Rendimiento de cultivos por campaña</h3>
+      <p>Análisis de rindes de soja, maíz y trigo por departamento con datos abiertos
+         del Ministerio de Agricultura: series históricas, comparación entre campañas
+         y visualización geográfica.</p>
+      <div class="project-result">56 campañas de datos oficiales: el rinde del maíz casi se triplicó desde los 90.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Series históricas</span><span class="tag">Datos abiertos</span></div>
+      <div class="project-links"><a href="https://github.com/clementecifuentes/rindes-agricolas-argentina" target="_blank" rel="noopener">Ver código →</a></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Experiencia</div>
+    <h2 class="sec-title">Dónde trabajé</h2>
+  </div>
+
+  <div class="xp-item reveal">
+    <div class="xp-when">Feb 2023 — Actualidad</div>
+    <div>
+      <div class="xp-role">Data Analyst — Soluciones Conectadas</div>
+      <div class="xp-org">Rural Ceres · Concesionario John Deere · AgTech</div>
+      <div class="xp-body">
+        <ul>
+          <li>Integración y análisis de datos desde <strong>APIs REST (OAuth2)</strong> sobre más de 850 organizaciones, calculando indicadores operativos en tiempo real.</li>
+          <li>Automatización de pipelines con <strong>Python y SQL</strong>, reduciendo el trabajo manual de reporting en ~60%.</li>
+          <li>Desarrollo de <strong>dashboards en Power BI</strong> usados semanalmente por gerencia: definición de métricas, queries SQL y mantenimiento.</li>
+          <li>Validación y control de calidad de datos post-implementación antes de que los KPIs lleguen a gerencia.</li>
+          <li>Metodologías ágiles junto a equipos de operaciones y producto.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="xp-item reveal">
+    <div class="xp-when">Mar 2020 — Ene 2022</div>
+    <div>
+      <div class="xp-role">Auxiliar Legal y de Datos</div>
+      <div class="xp-org">Estudio Jurídico Cifuentes &amp; Fernández · Tandil</div>
+      <div class="xp-body">
+        <ul>
+          <li>Diseño e implementación de la <strong>primera base de datos SQL</strong> del estudio: esquema, migración desde planillas y validación de registros.</li>
+          <li>Procesamiento de juicios ejecutivos para entidades bancarias, manejando datos estructurados sensibles.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Habilidades</div>
+    <h2 class="sec-title">Con qué trabajo</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <h3>Lenguajes &amp; Datos</h3>
+      <ul><li>SQL (avanzado)</li><li>Python</li><li>Pandas</li><li>NumPy</li><li>ETL &amp; Pipelines</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h3>Visualización &amp; BI</h3>
+      <ul><li>Power BI</li><li>Tableau</li><li>Looker Studio</li><li>Excel Avanzado</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h3>Integración &amp; Cloud</h3>
+      <ul><li>APIs REST (OAuth2)</li><li>AWS</li><li>Data Quality</li><li>Documentación técnica</li></ul>
+    </div>
+    <div class="skill-group reveal">
+      <h3>Analítica &amp; Negocio</h3>
+      <ul><li>GA4</li><li>Google Tag Manager</li><li>Firebase</li><li>Análisis financiero &amp; KPIs</li><li>Metodologías ágiles</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="formacion">
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Formación</div>
+    <h2 class="sec-title">Estudios y certificaciones</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <h3>Lic. en Gestión Tecnológica</h3>
+      <div class="edu-where">UNICEN — Fac. de Ciencias Económicas, Tandil</div>
+      <div class="edu-when">2019 — Actualidad · Último año</div>
+      <p>Gestión de datos, optimización de procesos, innovación organizacional y diseño
+         de sistemas de información. Ingeniería de datos + estrategia empresarial.</p>
+    </div>
+    <div class="edu-card reveal">
+      <h3>Contador Público</h3>
+      <div class="edu-where">UNICEN — Fac. de Ciencias Económicas</div>
+      <div class="edu-when">2019 — Actualidad</div>
+      <p>Análisis financiero, auditoría y contabilidad de costos — aplicados al análisis
+         de KPIs y modelado de presupuestos.</p>
+    </div>
+    <div class="edu-card reveal">
+      <h3>Bachiller Bilingüe — Economía y Adm.</h3>
+      <div class="edu-where">Colegio Santo Domingo en la Sierra, Tandil</div>
+      <div class="edu-when">2010 — 2015</div>
+      <p>Formación bilingüe con orientación en economía y administración.</p>
+    </div>
+    <div class="edu-card reveal">
+      <h3>Intercambio académico en EE.UU.</h3>
+      <div class="edu-where">De La Salle High School, Minneapolis, MN</div>
+      <div class="edu-when">Abr — Jul 2015</div>
+      <p>Seleccionado por excelencia académica y personal. Programa de 4 meses.</p>
+    </div>
+  </div>
+  <div class="certs reveal">
+    <span class="cert">Cambridge First Certificate (FCE)</span>
+    <span class="cert">IGCSE — 8 materias (Business, English, ICT)</span>
+    <span class="cert">KET &amp; PET — Universidad de Cambridge</span>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-card reveal">
+    <h2>¿Trabajamos juntos?</h2>
+    <p>Estoy abierto a oportunidades como Data Analyst, locales y remotas.
+       Inglés nativo — cómodo trabajando con equipos internacionales.</p>
+    <a class="btn btn-primary" href="mailto:clementecifuentes1@gmail.com">clementecifuentes1@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/clementecifuentes" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/clementecifuentes" target="_blank" rel="noopener">GitHub</a>
+      <a href="tel:+542494245892">+54 249 424-5892</a>
+      <a href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">CV Español</a>
+      <a href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">CV English</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Clemente Cifuentes · Tandil, Argentina
+</footer>
+
+<script>
+  // Aparición suave al hacer scroll
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('on');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+
+  // Brillo que sigue al cursor en las tarjetas de proyecto
+  document.querySelectorAll('.project-card').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+</script>
+
+</body>
+</html>
