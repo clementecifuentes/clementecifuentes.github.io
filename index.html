@@ -10,16 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --bg-soft: #101018;
-      --card: #13131d;
-      --border: #22222f;
-      --border-soft: #1a1a26;
-      --text: #ededf2;
-      --text-dim: #9d9dae;
-      --text-faint: #62626f;
-      --accent: #8b8bf4;
-      --accent-2: #5eead4;
+      --bg: #fbfcfd;
+      --bg-soft: #f3f5f8;
+      --card: #ffffff;
+      --border: #dde2e9;
+      --border-soft: #e9edf2;
+      --text: #171b24;
+      --text-dim: #5b6572;
+      --text-faint: #8a92a0;
+      --accent: #2457d6;
+      --accent-2: #0f9184;
       --max-w: 1060px;
       --radius: 14px;
     }
@@ -41,14 +41,14 @@
     .aurora {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background:
-        radial-gradient(600px 400px at 75% -5%, rgba(139, 139, 244, 0.13), transparent 65%),
-        radial-gradient(500px 380px at 15% 10%, rgba(94, 234, 212, 0.07), transparent 65%);
+        radial-gradient(600px 400px at 75% -5%, rgba(36, 87, 214, 0.07), transparent 65%),
+        radial-gradient(500px 380px at 15% 10%, rgba(15, 145, 132, 0.05), transparent 65%);
     }
 
     /* ---------- Nav ---------- */
     nav {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(10, 10, 15, 0.75);
+      background: rgba(251, 252, 253, 0.85);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-soft);
     }
@@ -76,12 +76,13 @@
       font-size: 0.82rem; font-weight: 500; color: var(--text-dim);
       border: 1px solid var(--border); border-radius: 999px;
       padding: 0.35rem 0.95rem; margin-bottom: 1.8rem;
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--card);
+      box-shadow: 0 1px 3px rgba(23, 27, 36, 0.05);
     }
     .hero-badge::before {
       content: ""; width: 7px; height: 7px; border-radius: 50%;
       background: var(--accent-2);
-      box-shadow: 0 0 10px rgba(94, 234, 212, 0.7);
+      box-shadow: 0 0 8px rgba(15, 145, 132, 0.6);
     }
     h1 {
       font-size: clamp(2.4rem, 6vw, 4rem);
@@ -104,8 +105,8 @@
       transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.18s;
     }
     .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--text); color: var(--bg); }
-    .btn-primary:hover { box-shadow: 0 8px 28px rgba(237, 237, 242, 0.18); }
+    .btn-primary { background: var(--text); color: #ffffff; }
+    .btn-primary:hover { box-shadow: 0 8px 24px rgba(23, 27, 36, 0.22); }
     .btn-ghost { border: 1px solid var(--border); color: var(--text-dim); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
     .hero-meta {
@@ -158,10 +159,10 @@
     }
     .project-card::before {
       content: ""; position: absolute; inset: 0; opacity: 0;
-      background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), rgba(139, 139, 244, 0.08), transparent 65%);
+      background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), rgba(36, 87, 214, 0.05), transparent 65%);
       transition: opacity 0.3s; pointer-events: none;
     }
-    .project-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
+    .project-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: 0 14px 36px rgba(23, 27, 36, 0.1); }
     .project-card:hover::before { opacity: 1; }
     .project-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
     .project-sector {
@@ -172,7 +173,7 @@
       font-size: 0.72rem; font-weight: 500; color: var(--text-faint);
       border: 1px solid var(--border); border-radius: 999px; padding: 0.14rem 0.6rem;
     }
-    .st-live { color: var(--accent-2); border-color: rgba(94, 234, 212, 0.3); }
+    .st-live { color: var(--accent-2); border-color: rgba(15, 145, 132, 0.35); background: rgba(15, 145, 132, 0.06); }
     .project-card h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.01em; }
     .project-card p { color: var(--text-dim); font-size: 0.94rem; flex-grow: 1; }
     .project-result { font-size: 0.89rem; color: var(--text); }
@@ -180,7 +181,7 @@
     .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .tag {
       font-size: 0.76rem; font-weight: 500; color: var(--text-dim);
-      background: rgba(255, 255, 255, 0.035);
+      background: var(--bg-soft);
       border: 1px solid var(--border-soft);
       padding: 0.2rem 0.65rem; border-radius: 6px;
     }
@@ -234,7 +235,7 @@
     }
     .contact-card::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(500px 260px at 50% -10%, rgba(139, 139, 244, 0.14), transparent 70%);
+      background: radial-gradient(500px 260px at 50% -10%, rgba(36, 87, 214, 0.07), transparent 70%);
     }
     .contact-card h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: -0.02em; }
     .contact-card > p { color: var(--text-dim); max-width: 480px; }
