@@ -147,23 +147,44 @@
     @media (max-width: 680px) { .xp-item { grid-template-columns: 1fr; gap: 0.5rem; } }
 
     /* ---------- Proyectos ---------- */
-    .projects-grid { display: grid; gap: 1.2rem; grid-template-columns: 1fr 1fr; }
+    .projects-grid { display: grid; gap: 1.6rem; grid-template-columns: 1fr 1fr; }
     @media (max-width: 780px) { .projects-grid { grid-template-columns: 1fr; } }
     .project-card {
       position: relative;
       background: var(--card); border: 1px solid var(--border-soft);
-      border-radius: var(--radius); padding: 1.8rem;
-      display: flex; flex-direction: column; gap: 0.9rem;
+      border-radius: var(--radius);
+      display: flex; flex-direction: column;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
       overflow: hidden;
     }
-    .project-card::before {
-      content: ""; position: absolute; inset: 0; opacity: 0;
-      background: radial-gradient(420px 200px at var(--mx, 50%) var(--my, 0%), rgba(36, 87, 214, 0.05), transparent 65%);
-      transition: opacity 0.3s; pointer-events: none;
+    .project-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(23, 27, 36, 0.12); }
+
+    /* Preview del gráfico */
+    .project-figura {
+      display: block; position: relative;
+      background: #fcfcfb;
+      border-bottom: 1px solid var(--border-soft);
+      overflow: hidden; cursor: zoom-in;
     }
-    .project-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: 0 14px 36px rgba(23, 27, 36, 0.1); }
-    .project-card:hover::before { opacity: 1; }
+    .project-figura img {
+      display: block; width: 100%; height: auto;
+      transition: transform 0.45s ease;
+    }
+    .project-card:hover .project-figura img { transform: scale(1.035); }
+    .project-figura::after {
+      content: "Ampliar";
+      position: absolute; right: 0.7rem; bottom: 0.7rem;
+      font-size: 0.72rem; font-weight: 600; color: #fff;
+      background: rgba(23, 27, 36, 0.72);
+      padding: 0.24rem 0.6rem; border-radius: 6px;
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .project-card:hover .project-figura::after { opacity: 1; }
+
+    .project-cuerpo {
+      padding: 1.5rem 1.7rem 1.7rem;
+      display: flex; flex-direction: column; gap: 0.85rem; flex-grow: 1;
+    }
     .project-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
     .project-sector {
       font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
@@ -174,8 +195,8 @@
       border: 1px solid var(--border); border-radius: 999px; padding: 0.14rem 0.6rem;
     }
     .st-live { color: var(--accent-2); border-color: rgba(15, 145, 132, 0.35); background: rgba(15, 145, 132, 0.06); }
-    .project-card h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.01em; }
-    .project-card p { color: var(--text-dim); font-size: 0.94rem; flex-grow: 1; }
+    .project-card h3, .pro-card h3 { font-size: 1.12rem; font-weight: 600; letter-spacing: -0.01em; }
+    .project-card p, .pro-card p { color: var(--text-dim); font-size: 0.94rem; flex-grow: 1; }
     .project-result { font-size: 0.89rem; color: var(--text); }
     .project-result::before { content: "↳ "; color: var(--accent); }
     .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
@@ -188,6 +209,42 @@
     .project-links { display: flex; gap: 1.2rem; font-size: 0.88rem; font-weight: 500; }
     .project-links a { color: var(--accent); }
     .project-links a:hover { text-decoration: underline; }
+
+    /* Proyectos profesionales (sin preview: datos de empresa) */
+    .sub-head {
+      margin: 3.2rem 0 1.4rem; display: flex; align-items: baseline; gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .sub-head h3 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.01em; }
+    .sub-head span { font-size: 0.88rem; color: var(--text-faint); }
+    .pro-grid { display: grid; gap: 1.2rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 780px) { .pro-grid { grid-template-columns: 1fr; } }
+    .pro-card {
+      background: var(--bg-soft); border: 1px solid var(--border-soft);
+      border-radius: var(--radius); padding: 1.6rem;
+      display: flex; flex-direction: column; gap: 0.7rem;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(15, 18, 25, 0.88);
+      display: none; align-items: center; justify-content: center;
+      padding: 5vh 4vw; cursor: zoom-out;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    #lightbox.on { display: flex; opacity: 1; }
+    #lightbox img {
+      max-width: 100%; max-height: 90vh; width: auto;
+      border-radius: 10px; background: #fcfcfb;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    }
+    #lightbox .cerrar {
+      position: absolute; top: 1.4rem; right: 1.8rem;
+      color: #fff; font-size: 2rem; line-height: 1;
+      background: none; border: none; cursor: pointer; opacity: 0.75;
+    }
+    #lightbox .cerrar:hover { opacity: 1; }
 
     /* ---------- Habilidades ---------- */
     .skills-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); }
@@ -306,11 +363,98 @@
   <div class="sec-head reveal">
     <div class="sec-kicker">Proyectos</div>
     <h2 class="sec-title">Trabajo aplicado por industria</h2>
-    <p class="sec-sub">Casos reales y proyectos con datasets públicos, orientados a operaciones: agro, logística, inventario y energía.</p>
+    <p class="sec-sub">Análisis sobre datos reales y públicos, orientados a operaciones: energía, logística, inventario y agro. Cada uno con su código y sus datos reproducibles.</p>
   </div>
   <div class="projects-grid">
 
     <article class="project-card reveal">
+      <a class="project-figura" href="img/vaca-muerta.webp">
+        <img src="img/vaca-muerta.webp" width="1000" height="479" loading="lazy"
+             alt="Curva tipo de producción de petróleo por pozo, comparando cohortes de 2019, 2021 y 2023">
+      </a>
+      <div class="project-cuerpo">
+        <div class="project-top">
+          <span class="project-sector">Oil &amp; Gas · Energía</span>
+          <span class="project-status st-live">Publicado</span>
+        </div>
+        <h3>Análisis de producción — Vaca Muerta</h3>
+        <p>Producción de pozos no convencionales con datos abiertos de la Secretaría
+           de Energía: curvas de declinación por cohorte, ranking de operadoras y
+           evolución de la actividad en la cuenca neuquina.</p>
+        <div class="project-result">213 mil registros de 3.335 pozos, descargados vía API oficial.</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">API CKAN</span><span class="tag">Datos abiertos</span></div>
+        <div class="project-links"><a href="https://github.com/clementecifuentes/vaca-muerta-produccion" target="_blank" rel="noopener">Ver código →</a></div>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <a class="project-figura" href="img/logistica.webp">
+        <img src="img/logistica.webp" width="1000" height="457" loading="lazy"
+             alt="Lead time promedio descompuesto por etapa: aprobación del pago, preparación del vendedor y tránsito del correo">
+      </a>
+      <div class="project-cuerpo">
+        <div class="project-top">
+          <span class="project-sector">Logística · Supply Chain</span>
+          <span class="project-status st-live">Publicado</span>
+        </div>
+        <h3>Torre de control logística</h3>
+        <p>Performance de entregas sobre 95 mil pedidos de e-commerce: cumplimiento
+           de fecha, descomposición del lead time por etapa y brecha regional entre
+           destinos.</p>
+        <div class="project-result">91,8% de entregas a tiempo; el correo explica ~70% del lead time.</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Nivel de servicio</span><span class="tag">Lead time</span></div>
+        <div class="project-links"><a href="https://github.com/clementecifuentes/torre-control-logistica" target="_blank" rel="noopener">Ver código →</a></div>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <a class="project-figura" href="img/inventario.webp">
+        <img src="img/inventario.webp" width="1000" height="443" loading="lazy"
+             alt="Pronóstico de demanda mensual con Holt-Winters contra la demanda real, con el período de evaluación destacado">
+      </a>
+      <div class="project-cuerpo">
+        <div class="project-top">
+          <span class="project-sector">Stock · Inventario</span>
+          <span class="project-status st-live">Publicado</span>
+        </div>
+        <h3>Inventario y predicción de demanda</h3>
+        <p>Clasificación ABC, pronóstico de demanda y política de reposición con punto
+           de reorden y stock de seguridad, sobre 913 mil registros de ventas diarias.</p>
+        <div class="project-result">Holt-Winters con 2,4% de MAPE, validado fuera de muestra contra un baseline.</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">statsmodels</span><span class="tag">Forecasting</span><span class="tag">ABC</span></div>
+        <div class="project-links"><a href="https://github.com/clementecifuentes/inventario-prediccion-demanda" target="_blank" rel="noopener">Ver código →</a></div>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <a class="project-figura" href="img/agro.webp">
+        <img src="img/agro.webp" width="1000" height="455" loading="lazy"
+             alt="Producción nacional de soja, maíz y trigo por campaña desde 1969 hasta hoy">
+      </a>
+      <div class="project-cuerpo">
+        <div class="project-top">
+          <span class="project-sector">Agro · Rendimientos</span>
+          <span class="project-status st-live">Publicado</span>
+        </div>
+        <h3>Rindes agrícolas en Argentina</h3>
+        <p>56 campañas de soja, maíz y trigo con las Estimaciones Agrícolas oficiales:
+           evolución del rendimiento, concentración provincial y brecha de rindes
+           entre departamentos.</p>
+        <div class="project-result">El rinde del maíz casi se triplicó desde los años 90.</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Series históricas</span><span class="tag">Datos abiertos</span></div>
+        <div class="project-links"><a href="https://github.com/clementecifuentes/rindes-agricolas-argentina" target="_blank" rel="noopener">Ver código →</a></div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="sub-head reveal">
+    <h3>Proyectos profesionales</h3>
+    <span>Trabajo en curso sobre datos de empresa, sin código público.</span>
+  </div>
+  <div class="pro-grid">
+
+    <article class="pro-card reveal">
       <div class="project-top">
         <span class="project-sector">Agro · IoT</span>
         <span class="project-status st-live">En producción</span>
@@ -323,7 +467,7 @@
       <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">APIs REST</span><span class="tag">Power BI</span></div>
     </article>
 
-    <article class="project-card reveal">
+    <article class="pro-card reveal">
       <div class="project-top">
         <span class="project-sector">LegalTech · Migración</span>
         <span class="project-status st-live">En producción</span>
@@ -334,60 +478,6 @@
          migración y validación de registros.</p>
       <div class="project-result">Reemplazó por completo el flujo de trabajo manual del estudio.</div>
       <div class="tags"><span class="tag">SQL</span><span class="tag">Modelado de datos</span><span class="tag">Data Quality</span></div>
-    </article>
-
-    <article class="project-card reveal">
-      <div class="project-top">
-        <span class="project-sector">Logística · Supply Chain</span>
-        <span class="project-status st-live">Publicado</span>
-      </div>
-      <h3>Torre de control logística</h3>
-      <p>Dashboard de seguimiento de entregas: tiempos de tránsito, cumplimiento OTIF,
-         costos por ruta y detección de cuellos de botella en la distribución.</p>
-      <div class="project-result">91,8% de entregas a tiempo; el tránsito del correo explica ~70% del lead time.</div>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">OTIF</span><span class="tag">Lead time</span></div>
-      <div class="project-links"><a href="https://github.com/clementecifuentes/torre-control-logistica" target="_blank" rel="noopener">Ver código →</a></div>
-    </article>
-
-    <article class="project-card reveal">
-      <div class="project-top">
-        <span class="project-sector">Stock · Inventario</span>
-        <span class="project-status st-live">Publicado</span>
-      </div>
-      <h3>Control de inventario con predicción de demanda</h3>
-      <p>Análisis ABC de inventario, punto de reorden y stock de seguridad, con
-         pronóstico de demanda por SKU para reducir quiebres de stock y capital inmovilizado.</p>
-      <div class="project-result">Pronóstico Holt-Winters con 2,4% de MAPE validado fuera de muestra.</div>
-      <div class="tags"><span class="tag">Python</span><span class="tag">statsmodels</span><span class="tag">Forecasting</span><span class="tag">ABC</span></div>
-      <div class="project-links"><a href="https://github.com/clementecifuentes/inventario-prediccion-demanda" target="_blank" rel="noopener">Ver código →</a></div>
-    </article>
-
-    <article class="project-card reveal">
-      <div class="project-top">
-        <span class="project-sector">Oil &amp; Gas · Energía</span>
-        <span class="project-status st-live">Publicado</span>
-      </div>
-      <h3>Análisis de producción — Vaca Muerta</h3>
-      <p>Análisis de producción de pozos no convencionales con datos abiertos de la
-         Secretaría de Energía: curvas de declinación, producción por operadora y
-         evolución de la actividad en la cuenca neuquina.</p>
-      <div class="project-result">213 mil registros de 3.335 pozos descargados vía API oficial, con curvas tipo por cohorte.</div>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">API CKAN</span><span class="tag">Datos abiertos</span></div>
-      <div class="project-links"><a href="https://github.com/clementecifuentes/vaca-muerta-produccion" target="_blank" rel="noopener">Ver código →</a></div>
-    </article>
-
-    <article class="project-card reveal">
-      <div class="project-top">
-        <span class="project-sector">Agro · Rendimientos</span>
-        <span class="project-status st-live">Publicado</span>
-      </div>
-      <h3>Rendimiento de cultivos por campaña</h3>
-      <p>Análisis de rindes de soja, maíz y trigo por departamento con datos abiertos
-         del Ministerio de Agricultura: series históricas, comparación entre campañas
-         y visualización geográfica.</p>
-      <div class="project-result">56 campañas de datos oficiales: el rinde del maíz casi se triplicó desde los 90.</div>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Series históricas</span><span class="tag">Datos abiertos</span></div>
-      <div class="project-links"><a href="https://github.com/clementecifuentes/rindes-agricolas-argentina" target="_blank" rel="noopener">Ver código →</a></div>
     </article>
 
   </div>
@@ -516,6 +606,11 @@
   © 2026 Clemente Cifuentes · Tandil, Argentina
 </footer>
 
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Gráfico ampliado">
+  <button class="cerrar" aria-label="Cerrar">&times;</button>
+  <img src="" alt="">
+</div>
+
 <script>
   // Aparición suave al hacer scroll
   (function () {
@@ -529,14 +624,35 @@
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
   })();
 
-  // Brillo que sigue al cursor en las tarjetas de proyecto
-  document.querySelectorAll('.project-card').forEach(function (card) {
-    card.addEventListener('mousemove', function (e) {
-      var r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  // Lightbox para ampliar los gráficos
+  (function () {
+    var caja = document.getElementById('lightbox');
+    var img = caja.querySelector('img');
+
+    function abrir(src, alt) {
+      img.src = src;
+      img.alt = alt;
+      caja.classList.add('on');
+      document.body.style.overflow = 'hidden';
+    }
+    function cerrar() {
+      caja.classList.remove('on');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.project-figura').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var original = a.querySelector('img');
+        abrir(a.getAttribute('href'), original ? original.alt : '');
+      });
     });
-  });
+
+    caja.addEventListener('click', cerrar);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cerrar();
+    });
+  })();
 </script>
 
 </body>
