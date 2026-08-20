@@ -97,7 +97,32 @@
       color: var(--text-dim); font-size: 1.12rem; max-width: 610px; margin-bottom: 1.8rem;
     }
     .hero-sub strong { color: var(--text); font-weight: 600; }
-    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+
+    /* Menú de contacto */
+    .menu-contacto { position: relative; }
+    .menu-contacto > .btn { cursor: pointer; font-family: inherit; border: none; }
+    .menu-contacto .flecha { transition: transform 0.2s; }
+    .menu-contacto.abierto .flecha { transform: rotate(180deg); }
+    .opciones-contacto {
+      position: absolute; top: calc(100% + 0.5rem); left: 0; z-index: 40;
+      min-width: 100%; width: max-content;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(23, 27, 36, 0.14);
+      padding: 0.4rem;
+      display: none;
+    }
+    .menu-contacto.abierto .opciones-contacto { display: block; }
+    .opciones-contacto a {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.55rem 0.85rem; border-radius: 7px;
+      font-size: 0.9rem; font-weight: 500; color: var(--text);
+      white-space: nowrap; transition: background 0.15s;
+    }
+    .opciones-contacto a:hover { background: var(--bg-soft); }
+    .opciones-contacto small { display: block; color: var(--text-faint); font-size: 0.78rem; font-weight: 400; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.72rem 1.45rem; border-radius: 10px;
@@ -347,7 +372,26 @@
     <strong>agro, logística, stock y energía</strong>.
   </p>
   <div class="hero-actions">
-    <a class="btn btn-primary" href="mailto:clementecifuentes1@gmail.com">Contactarme</a>
+    <div class="menu-contacto" id="menu-contacto">
+      <button type="button" class="btn btn-primary" id="boton-contacto"
+              aria-haspopup="true" aria-expanded="false" aria-controls="opciones-contacto">
+        Contactarme
+        <svg class="flecha" width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden="true">
+          <path d="M1 1L5.5 5.5L10 1" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="opciones-contacto" id="opciones-contacto" role="menu">
+        <a role="menuitem" href="mailto:clementecifuentes1@gmail.com">
+          <span aria-hidden="true">✉</span>
+          <span>Correo<small>clementecifuentes1@gmail.com</small></span>
+        </a>
+        <a role="menuitem" href="https://wa.me/5492494245892" target="_blank" rel="noopener">
+          <span aria-hidden="true">💬</span>
+          <span>WhatsApp<small>+54 249 424-5892</small></span>
+        </a>
+      </div>
+    </div>
     <a class="btn btn-ghost" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">CV Español</a>
     <a class="btn btn-ghost" href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">CV English</a>
   </div>
@@ -593,9 +637,9 @@
        Inglés nativo — cómodo trabajando con equipos internacionales.</p>
     <a class="btn btn-primary" href="mailto:clementecifuentes1@gmail.com">clementecifuentes1@gmail.com</a>
     <div class="contact-links">
+      <a href="https://wa.me/5492494245892" target="_blank" rel="noopener">WhatsApp</a>
       <a href="https://linkedin.com/in/clementecifuentes" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/clementecifuentes" target="_blank" rel="noopener">GitHub</a>
-      <a href="tel:+542494245892">+54 249 424-5892</a>
       <a href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">CV Español</a>
       <a href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">CV English</a>
     </div>
@@ -622,6 +666,30 @@
       });
     }, { threshold: 0.2 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+
+  // Menú de contacto: correo o WhatsApp
+  (function () {
+    var menu = document.getElementById('menu-contacto');
+    var boton = document.getElementById('boton-contacto');
+
+    function cerrar() {
+      menu.classList.remove('abierto');
+      boton.setAttribute('aria-expanded', 'false');
+    }
+
+    boton.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var abierto = menu.classList.toggle('abierto');
+      boton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!menu.contains(e.target)) cerrar();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') cerrar();
+    });
   })();
 
   // Lightbox para ampliar los gráficos
