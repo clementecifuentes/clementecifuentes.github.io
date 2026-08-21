@@ -62,12 +62,6 @@
     .nav-links { display: flex; gap: 1.8rem; align-items: center; }
     .nav-links a { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-cv {
-      color: var(--text) !important;
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 0.4rem 0.95rem; transition: border-color 0.2s, background 0.2s;
-    }
-    .nav-cv:hover { border-color: var(--accent); background: rgba(139, 139, 244, 0.08); }
 
     /* ---------- Hero ---------- */
     .hero { max-width: var(--max-w); margin: 0 auto; padding: 4.2rem 1.5rem 3rem; }
@@ -135,12 +129,36 @@
     .btn-primary:hover { box-shadow: 0 8px 24px rgba(23, 27, 36, 0.22); }
     .btn-ghost { border: 1px solid var(--border); color: var(--text-dim); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
-    .hero-meta {
-      margin-top: 1.8rem; display: flex; gap: 0.6rem 1.8rem; flex-wrap: wrap;
-      font-size: 0.87rem; color: var(--text-faint);
+    .icono-nube { width: 17px; height: 17px; flex-shrink: 0; transition: transform 0.25s; }
+    .btn-ghost:hover .icono-nube { transform: translateY(2px); }
+    .hero-datos {
+      margin-top: 2.2rem;
+      display: flex; flex-wrap: wrap;
+      background: var(--card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(23, 27, 36, 0.04);
+      overflow: hidden;
     }
-    .hero-meta a { color: var(--text-faint); border-bottom: 1px solid transparent; transition: color 0.2s; }
-    .hero-meta a:hover { color: var(--accent); }
+    .dato {
+      flex: 1; min-width: 190px;
+      padding: 1rem 1.3rem;
+      border-left: 1px solid var(--border-soft);
+    }
+    .dato:first-child { border-left: none; }
+    .dato-label {
+      display: block;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--text-faint);
+      margin-bottom: 0.25rem;
+    }
+    .dato-valor { font-size: 0.9rem; color: var(--text); }
+    .dato-valor a { color: var(--accent); font-weight: 500; }
+    .dato-valor a:hover { text-decoration: underline; }
+    @media (max-width: 700px) {
+      .dato { flex: 100%; border-left: none; border-top: 1px solid var(--border-soft); }
+      .dato:first-child { border-top: none; }
+    }
 
     /* ---------- Secciones ---------- */
     section { max-width: var(--max-w); margin: 0 auto; padding: 3.8rem 1.5rem; }
@@ -336,7 +354,7 @@
     }
 
     @media (max-width: 640px) {
-      .nav-links a:not(.nav-cv) { display: none; }
+      .nav-links { display: none; }
       .hero { padding-top: 4.5rem; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -357,7 +375,7 @@
       <a href="#experiencia">Experiencia</a>
       <a href="#habilidades">Habilidades</a>
       <a href="#formacion">Formación</a>
-      <a class="nav-cv" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">Descargar CV</a>
+      <a href="#contacto">Contacto</a>
     </div>
   </div>
 </nav>
@@ -406,14 +424,45 @@
         </a>
       </div>
     </div>
-    <a class="btn btn-ghost" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">CV Español</a>
-    <a class="btn btn-ghost" href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">CV English</a>
+    <a class="btn btn-ghost" href="cv-es.pdf" download="CV_Clemente_Cifuentes.pdf">
+      <svg class="icono-nube" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 18a4.5 4.5 0 0 1-.53-8.97 6 6 0 0 1 11.65-1A4.25 4.25 0 0 1 17.5 18"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 11v8m0 0-3-3m3 3 3-3"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      CV Español
+    </a>
+    <a class="btn btn-ghost" href="cv-en.pdf" download="CV_Clemente_Cifuentes_EN.pdf">
+      <svg class="icono-nube" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 18a4.5 4.5 0 0 1-.53-8.97 6 6 0 0 1 11.65-1A4.25 4.25 0 0 1 17.5 18"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 11v8m0 0-3-3m3 3 3-3"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      CV English
+    </a>
   </div>
-  <div class="hero-meta">
-    <span>Tandil, Buenos Aires · GMT-3</span>
-    <span>Inglés nativo / C1+ · Español nativo</span>
-    <a href="https://www.linkedin.com/in/clemente-cifuentes/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/clementecifuentes" target="_blank" rel="noopener">GitHub</a>
+  <div class="hero-datos">
+    <div class="dato">
+      <span class="dato-label">Ubicación</span>
+      <span class="dato-valor">Tandil, Buenos Aires · GMT-3</span>
+    </div>
+    <div class="dato">
+      <span class="dato-label">Idiomas</span>
+      <span class="dato-valor">Inglés nativo / C1+ · Español nativo</span>
+    </div>
+    <div class="dato">
+      <span class="dato-label">Disponibilidad</span>
+      <span class="dato-valor">Remoto o presencial en Tandil</span>
+    </div>
+    <div class="dato">
+      <span class="dato-label">Perfiles</span>
+      <span class="dato-valor">
+        <a href="https://www.linkedin.com/in/clemente-cifuentes/" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/clementecifuentes" target="_blank" rel="noopener">GitHub</a>
+      </span>
+    </div>
   </div>
 </header>
 
